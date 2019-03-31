@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import axios from '../../../axios';
 import Post from '../../../components/Post/Post';
-import FullPost from '../../../components/FullPost/FullPost';
-import NewPost from '../../../components/NewPost/NewPost';
+import FullPost from '../FullPost/FullPost';
+import NewPost from '../NewPost/NewPost';
 //import { Link } from 'react-router-dom';
 
 
@@ -16,7 +16,7 @@ export default class Posts extends Component{
     componentDidMount(){
         axios.get('/posts')
         .then(response => {
-            const posts = response.data.slice(0, 4);
+            const posts = response.data.slice(0, 6);
             const updatedposts = posts.map(posts => {
                 return{
                     ...posts,
@@ -27,6 +27,7 @@ export default class Posts extends Component{
                 data: updatedposts
             })
         }).catch(error => {
+            console.log(error)
             this.setState({
                 error: true
             })
@@ -42,7 +43,7 @@ export default class Posts extends Component{
         if(!this.state.error){
             posts = this.state.data.map(post => {
                 return ( 
-                   <Link to = { '/' + post.id} key={post.id}>
+                   //<Link to = { '/' + post.id} key={post.id}>
                 <Post 
                 key={post.id}
                 title = {post.title} 

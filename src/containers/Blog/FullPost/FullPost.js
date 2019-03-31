@@ -3,11 +3,11 @@ import axios from 'axios';
 
 class FullPost extends Component {
     state = {
-        loadedPosts :null
+        loadedPosts : null
     }
     componentDidMount(){
         console.log(this.props)
-        if(this.props.match.params.id){
+        if(this.props.id){
             if( !this.state.loadedPosts || (this.state.loadedPosts && this.props.id !== this.state.loadedPosts.id)){
                 axios.get('/posts/' + this.props.match.params.id)
                     .then(response => {
@@ -18,8 +18,6 @@ class FullPost extends Component {
             }
         }
     }
-    /* God please help me to conquer everything coming my way, and lead my not into temptation but
-    deliver me from all  evil, the rod and thy staff , they comfort me. */
 
     render () {
         let post = <p style = {{textAlign:"center"}}>Please select a Post!</p>;

@@ -1,70 +1,69 @@
 import React, { Component } from 'react';
 import axios from '../../../axios';
+import { Route } from 'react-router-dom';
+
 import Post from '../../../components/Post/Post';
 import FullPost from '../FullPost/FullPost';
-import NewPost from '../NewPost/NewPost';
-//import { Link } from 'react-router-dom';
 
-
-export default class Posts extends Component{
+class Posts extends Component {
     state = {
-        data: [],
-        switchposts: null,
+        posts: [],
         error: false
     }
 
-    componentDidMount(){
-        axios.get('/posts')
-        .then(response => {
-            const posts = response.data.slice(0, 6);
-            const updatedposts = posts.map(posts => {
-                return{
-                    ...posts,
-                    author: 'Collins',
-                }
-            })
-            this.setState({
-                data: updatedposts
-            })
-        }).catch(error => {
-            console.log(error)
-            this.setState({
-                error: true
-            })
-        });
-        
-    }
-    personHandler = (id) => {
-       this.props.history.push({pathname: '/' + id});
+    componentDidMount () {
+        console.log( this.props );
+        axios.get( '/posts' )
+            .then( response => {
+                const posts = response.data.slice( 0, 6 );
+                const updatedPosts = posts.map( post => {
+                    return {
+                        ...post,
+                        author: 'Collins'
+                    }
+                } );
+                this.setState( { posts: updatedPosts } );
+                // console.log( response );
+            } )
+            .catch( error => {
+                console.log( error );
+                this.setState({
+                    error: error
+                })
+                // this.setState({error: true});
+            } );
     }
 
-    render(){
-            let posts = <p>Something went wrong</p>
-        if(!this.state.error){
-            posts = this.state.data.map(post => {
-                return ( 
-                   //<Link to = { '/' + post.id} key={post.id}>
-                <Post 
-                key={post.id}
-                title = {post.title} 
-                author ={post.author}
-                clicked = {() => this.personHandler(post.id)}
-                />
-               // </Link>
-                )
-                
-            })
-            }
-            return(<div>
-            <section className="Posts">
-            {posts}
-            </section>
-            <section>
-                <FullPost id = {this.state.switchposts}/>
-            </section>
-            <section>
-                <NewPost />
-            </section></div>
-        )
+    postSelectedHandler = ( id ) => {
+        // this.props.history.push({pathname: '/posts/' + id});
+        this.props.history.push( '/posts/' + id );
+    }
+
+    render () {
+        let posts = <p style={{ textAlign: 'center' }}>Something went wrong!</p>;
+        if ( !this.state.error ) {
+            posts = this.state.posts.map( post => {
+                return (
+                    // <Link to={'/posts/' + post.id} key={post.id}>
+                    <Post
+                        key={post.id}
+                        title={post.title}
+                        author={post.author}
+                        clicked={() => this.postSelectedHandler( post.id )} />
+                    // </Link>
+                );
+            } );
+        }
+
+        return (
+            <div>
+                <section className="Posts">
+                    {posts}
+                </section>
+                <Route path={this.props.match.url + '/:id'} exact component={FullPost} />
+            </div>
+        );
     }
 }
+
+export default Posts;

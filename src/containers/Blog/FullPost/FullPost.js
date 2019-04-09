@@ -27,6 +27,7 @@ class FullPost extends Component {
         }
     }
 
+<<<<<<< HEAD
     deletePostHandler = () => {
         axios.delete('/posts/' + this.props.match.params.id)
             .then(response => {
@@ -49,6 +50,23 @@ class FullPost extends Component {
                     </div>
                 </div>
 
+=======
+    render () {
+        let post = <p style = {{textAlign:"center"}}>Please select a Post!</p>;
+        if(this.props.id){
+            post = <p style = {{textAlign: "center"}}>Loading...</p>
+        }
+        if(this.state.loadedPosts){
+            post = (
+                <div className="FullPost">
+                    <h1>{this.state.loadedPosts.title}</h1>
+                    <p>{this.state.loadedPosts.body}</p>
+                    <div className="Edit">
+                    
+                        <button className="Delete">Delete</button>
+                    </div>
+                </div>
+>>>>>>> e313d107ab59dafdb50daa7f91c639be49ea0a22
             );
         }
         return post;

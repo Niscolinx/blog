@@ -7,13 +7,8 @@
     "node-sass": "^4.10.0",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
-<<<<<<< HEAD
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
-=======
-    "react-router": "^4.3.1",
-    "react-router-dom": "^4.3.1",
->>>>>>> e313d107ab59dafdb50daa7f91c639be49ea0a22
     "react-scripts": "2.1.1"
   },
   "scripts": {

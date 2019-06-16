@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-<<<<<<< HEAD
 import { Redirect } from 'react-router-dom';
-=======
->>>>>>> e313d107ab59dafdb50daa7f91c639be49ea0a22
 
 class NewPost extends Component {
     state = {
